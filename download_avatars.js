@@ -52,9 +52,7 @@ function downloadImageByUrl(url, filePath) {
          .pipe(fs.createWriteStream(filePath));
 }
 
-getRepoContributors("jquery", "jquery", function() {
-  console.log(arguments[0], arguments[1]);
-});
+getRepoContributors("jquery", "jquery", downloadImageByUrl);
 
-downloadImageByUrl("https://avatars3.githubusercontent.com/u/1615?v=3", "./avatars/jeresig.jpg")
+// downloadImageByUrl("https://avatars3.githubusercontent.com/u/1615?v=3", "./avatars/jeresig.jpg")
 
