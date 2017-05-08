@@ -1,0 +1,22 @@
+{
+  "name": "github-avatar-downloader",
+  "version": "1.0.0",
+  "description": "tool to download avatars of contributors on a github project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArmelChesnais/github-avatar-downloader.git"
+  },
+  "author": "Armel Chesnais",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ArmelChesnais/github-avatar-downloader/issues"
+  },
+  "homepage": "https://github.com/ArmelChesnais/github-avatar-downloader#readme",
+  "dependencies": {
+    "request": "^2.81.0"
+  }
+}
