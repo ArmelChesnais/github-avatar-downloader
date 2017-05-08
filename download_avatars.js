@@ -3,7 +3,9 @@ var fs = require('fs');
 require('dotenv').config();
 
 var downloadPath = "./avatars/"
-fs.mkdir(downloadPath);
+if (!fs.existsSync(downloadPath) ) {
+  fs.mkdir(downloadPath);
+}
 
 
 
