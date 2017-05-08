@@ -15,6 +15,7 @@ function getRepoContributors(repoOwner, repoName, cb) {
   }
 
   var result = "";
+  var contributorList;
   request.get( options )
          .on("error", function(err) {
           throw err;
@@ -23,12 +24,20 @@ function getRepoContributors(repoOwner, repoName, cb) {
            result += data;
          })
          .on("end", function() {
-           console.log(result);
+           contributorList = JSON.parse(result);
+           getAvatarLinks(contributorList, console.log);
          });
   // console.log(requestURL);
+}
+
+function getAvatarLinks(list, callback) {
+  for (var i = 0; i < list.length; i++) {
+    callback(list[i]["avatar_url"]);
+  }
 }
 
 getRepoContributors("jquery", "jquery", function(err, result) {
   console.log("Errors:", err);
   console.log("Result:", result);
 });
+
