@@ -2,6 +2,8 @@ var request = require('request');
 var fs = require('fs');
 require('dotenv').config();
 
+var downloadPath = "./avatars/"
+
 
 function getRepoContributors(repoOwner, repoName, cb) {
   var requestURL = 'https://'+ process.env.GITHUB_USER + ':' + process.env.GITHUB_TOKEN + '@api.github.com/repos/' + repoOwner + '/' + repoName + '/contributors';
@@ -40,20 +42,30 @@ function downloadImageByUrl(url, filePath) {
          .on("error", function(err) {
           throw err;
          })
-         .pipe(fs.createWriteStream(filePath));
+         .on("end", function() {
+           console.log(filePath, "download complete");
+         })
+         .pipe(fs.createWriteStream(filePath))
+         ;
 }
 
-var inputs = process.argv.slice[2];
+function processInput(inputs) {
+  if ( inputs.length < 2 ) {
+    console.log("Please provide two arguments: <owner> <repo>");
+  }
+  else {
+    if (!fs.existsSync(downloadPath) ) {
+      fs.mkdir(downloadPath);
+    }
 
+    console.log('Welcome to the GitHub Avatar Downloader!');
 
-var downloadPath = "./avatars/"
-if (!fs.existsSync(downloadPath) ) {
-  fs.mkdir(downloadPath);
+    getRepoContributors(inputs[0], inputs[1], downloadImageByUrl);
+  }
 }
 
-console.log('Welcome to the GitHub Avatar Downloader!');
+processInput( process.argv.slice(2) );
+// console.log(process.argv.slice(2));
 
-getRepoContributors(inputs[0], inputs[1], downloadImageByUrl);
 
-// downloadImageByUrl("https://avatars3.githubusercontent.com/u/1615?v=3", "./avatars/jeresig.jpg")
 
